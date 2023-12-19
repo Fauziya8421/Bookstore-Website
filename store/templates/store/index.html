@@ -1,0 +1,475 @@
+ {% extends 'store/basic.html' %}
+
+
+  {% block CSS %}
+      .container1{
+          display: grid;
+          height: 100vh;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 0.3fr 0.2fr 2.5fr 0.1fr 4fr 0.2fr 1.6fr 0.8fr ;
+          
+          grid-template-areas: 
+          "header header "
+          "nav nav "
+          "main main "
+          "search search "
+          "s1 s1 "
+          "con_head con_head"
+          "contact1 contact2"
+          "footer footer";
+      }
+      header{
+          
+          grid-area: header;
+      }
+      nav{
+    
+        grid-area: nav;
+      }
+      main{
+          
+          grid-area: main;
+      }
+      .searchb{
+          grid-area: search;
+      }
+
+      .s1{
+        background-color: #ff9900;
+          grid-area: s1;
+      }
+      
+      .con_head{
+          grid-area: con_head;
+      }
+      
+      .contact1{
+          grid-area: contact1;    
+      }
+
+      .contact2{
+          grid-area: contact2;
+      }
+
+      footer{
+          background-color: #0e0258;
+          grid-area: footer;
+      }
+
+      .col-md-3{
+        display:inline-block;
+        margin-left: -4px;
+      }
+
+      .col-md-3 img{
+        width:250px;
+        height:300px;
+      }
+      .container{
+          align : center;
+          left:18px
+      }
+      body .carousel-indicators .active{
+        background-color: blue;
+      }
+
+      body .carousel-indicators li{
+        background-color:blue;
+      }
+
+      body .carousel-indicators{
+        bottom:-40px;
+      }
+
+      .carousel-indicators li{
+        background-color:#7270fc;
+      }
+
+      {% comment %} body .carousel-control-prev-icon,
+      body .carousel-control-next-icon{
+      background-color:blue;
+      
+      } {% endcomment %}
+
+      .btn{
+        font-size:0.9rem;
+      }
+      
+      {% comment %} .carousel-control-prev,
+      .carousel-control-next{
+        top:auto;
+        bottom:auto;
+        padding-top: 222px
+      
+      } {% endcomment %}
+
+      body .no-padding{
+        padding-left:0,
+        padding-right:0;
+      }
+
+
+
+
+      /* Style inputs */
+      input[type=text ], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize:vertical;
+      }
+      input[type=Email ], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize:vertical;
+      }
+      
+      
+      
+      input[type=submit] {
+        background-color: #ff9900;
+        color:white;
+        padding: 12px 20px;
+        border: none;
+        cursor: pointer;
+      }
+      
+      input[type=submit]:hover {
+        background-color: rgb(172, 45, 45);
+      }
+      
+       
+      /* contact box*/
+      
+      .contact{
+      background-color: #fff;
+      display: flex;
+      }
+      
+      .contact1{
+        flex-basis: 60%;
+        padding: 40px 60px ;
+        background-color: rgb(238, 238, 238);
+      }
+      
+      
+      .contact2{
+        flex-basis: 40%;
+        padding: 50px 80px ;
+        background-color: #ff9900;
+        vertical-align: middle;
+      }
+      
+      .contact1 h2{
+        text-align: center;
+      }
+      .contact2 h2{
+        text-align: center;
+      }
+      
+      .contact1 h2{
+        color: #ff9900;
+      }
+      
+      .contact2 h2{
+        color: #fff;
+      }
+      
+      .contact1 tr td:first-child{
+        padding: 20px;
+        
+      }
+      .contact2 tr td:first-child{
+        padding: 20px;
+        
+      }
+      
+      {% endblock %}
+      
+
+
+      
+{% block body %}
+
+{% load static %}
+{%load cart%}
+
+
+
+
+
+
+
+        <main>
+            <div class ="grid-container1" style = " background-image: url({%static 'store/img/banner-bg.jpg' %}) ;" >
+              
+                <div class ="grid-show">
+                  <div class="one">
+                    <h1> Get Your New<br>
+                        Book With The <br>
+                        Best Price <br>
+                    <button type="click"><a href="#"> <b>Shop Now</b> </a></button>
+                  </div>
+                  <img src= "{%static 'store/img/stand.png' %}" alt="" class="stand">
+                </div>
+              
+                
+                <div class="grid-show">
+        
+                  <!-- Swiper -->
+                  <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                        <img src="{%static 'store/img/book-6.png' %}" />  
+                      </div>
+                      <div class="swiper-slide">                
+                      <img src="{%static 'store/img/book-2.png' %}" />
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="{%static 'store/img/book-3.png' %}" />
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="{%static 'store/img/book-4.png' %}" />
+                      </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                  </div>
+                  <!-- Swiper JS -->
+
+                  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+                    <!-- Initialize Swiper -->
+                    <script>
+                        var swiper = new Swiper(".mySwiper", {
+                        effect: "cube",
+                        grabCursor: true,
+                        cubeEffect: {
+                            shadow: true,
+                            slideShadows: true,
+                            shadowOffset: 20,
+                            shadowScale: 0.94,
+                        },
+                        autoplay: {
+                            delay: 2500,
+
+                        },
+
+                        pagination: {
+                            el: ".swiper-pagination",
+                        },
+                        });
+                    </script>
+        
+                  <!-- Swiper JS -->
+                </div>
+              </div>
+              <!-- home section ense  -->
+        </main>
+        
+      <form method='get' action = '/search/' class="form-inline my-2 my-lg-0  searchb ">
+        
+        <!-- search box -->
+        <div class="fetch">
+          <div class="search_box">
+            <input type="search" name="query" id="query" class="search form-control mr-sm-2 sbox " placeholder="Search here........">
+            <button class="fa fa-search sbtn " type="submit" style = "top: 1px;" ></button>
+          
+          </div>
+        </div>
+
+  </form>
+        
+
+  
+
+        
+{% load static %}
+
+
+    
+
+<div class="s1">
+  
+  <div class="container" >
+    {%if books|length < 1 %}
+      <img src="{% static 'store/img/clipart.png' %}" width="600px" height="850px" alt="..."   padding="100px">
+      <h2 >Not Found  </h2 text-align="center">
+    {%endif%}
+    {% for book in books %}
+        <div class="col-xs-3 col-sm-3 col-md-3 my-4">
+          <div class="card align-items-center" id ={{book.id}} style="width: 16.5rem;">
+            <img src='/media/{{book.image}}' class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title" id="namepr{{book.id}}">{{book.book_name}}</h5>
+            <p class="card-text">{{book.desc|slice:"0:20"}}...</p>
+            <h6 class="card-title" >Price : <span id="pricepr{{book.id}}">{{book.price}}</span></h6>
+            {% comment %} <span id="divpr{{i.id}}" class="divpr"> 
+            <button id="pr{{i.id}}"  class="btn btn-primary cart">Add to cart</button>
+          </span> {% endcomment %}
+           <div style="display: inline-flex;"> 
+          <a href="/books/{{book.id}}"> <button id="qv{{book.id}}""  class=" btn btn-primary " style = "width: 100%; height: 100%;"> Quick View </button></a>
+
+            {% comment %} {{book | is_in_cart:request.session.cart}} {% endcomment %}
+            
+            <div class="card-footer  no-gutters" style =   "padding: inherit;
+              width: fit-content; padding-left: 3%;">
+              {% if book|is_in_cart:request.session.cart %}
+              <div class = " row no-gutters" >
+                <form action="/#{{book.id}}" class="col-2" method="post">
+                  {%csrf_token%}
+                  <input hidden type="text" name="book" value='{{book.id}}'>
+                  <input hidden type="text" name="remove" value='True'>
+                  <input type ="submit" value=" -  " class="btn btn-block btn-secondary">
+                </form>
+                <div class=" text-center col ">{{book|cart_quantity:request.session.cart}}</div>
+              <form action="/#{{book.id}}" class="col-2" method="post">
+                {%csrf_token%}
+                <input hidden type="text" name="book" value='{{book.id}}'>
+                <input type ="submit" value=" +  " class="btn btn-block btn-secondary">
+              </form>
+              </div>
+              {%else%}
+              <form action="/#{{book.id}}" method="post" class="btn-block " >
+                {%csrf_token%}
+                  <input hidden type="text" name="book" value='{{book.id}}'>
+                <input  type ="submit" class="btn btn-block btn-primary cart "  value="Add to cart">
+              </form>
+                
+              {% endif %}
+
+              
+
+
+
+            </div>
+          </div>
+
+
+        
+            
+           
+            </div>
+          </div>
+
+
+
+
+
+       </div>
+       
+       {% endfor %}
+    
+  </div>
+      
+</div>
+    
+
+
+  
+
+
+<div class="con_head">
+            <!--Contact -->
+      <div style="text-align:center">
+        <h1>Contact Us</h1>
+      </div>
+  </div>
+        <div class="contact1">
+            <h2>Send Your request </h2>
+          <form action="" method="post">{% csrf_token %}
+            <label for="name">Full Name</label><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="name" name="name"
+              placeholder="Your name.." style="border-radius: 20px;"><br>
+
+            <label for="email">Email </label><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="Email" id="email" name="email"
+              placeholder="Your Email.." style="border-radius: 20px;"><br>
+            
+              <label for="phone"> Phone number </label><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="phone" name="phone"
+              placeholder="+91 000 000 0000" style="border-radius: 20px;"><br>
+
+            <label for="State"> State </label><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="state" name="state"
+            placeholder="Your state" style="border-radius: 20px;"><br>
+            
+            <label for="subject" style="border-radius: 20px;">Tell how we can help ?</label><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <textarea id="subject" name="subject" placeholder="Write something.."
+              style="height:120px; border-radius: 20px;"></textarea><br>
+            <input type="submit" value="Submit" style="border-radius: 20px;">
+          </form>
+        </div>
+
+<script>
+  
+{% if thank %}
+alert("Thanks for contacting us we will get back to you soon !!!!");
+
+document.location = "/";
+{% endif %}
+</script>
+
+
+        <div class="contact2">
+            <h2>Reach Us</h2><br>
+          <table>
+            <tr>
+              <td><i class="fa fa-envelope fa-2x" style="color: #fff;"></i></td>
+              <td>contactus@gmail.com</td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-phone fa-2x" style="color: #fff;"></i>
+              </td>
+              <td>+91 000 000 0000<br>
+                +91 000 000 0000</td>
+            </tr>
+            <tr>
+
+              <td><i class="fa fa-map-marker fa-2x" style="color: #fff;"></i></td>
+              <td>+121 baswei jnj fdfh <br>
+                xvfoug gthrd <br>
+                cvg 25864 
+
+              </td>
+            </tr>
+          </table>
+
+          <img src="{%static 'store/img/sticker1.jpeg' %}" class="brand" alt="Our Logo">
+
+        </div>
+       
+        {% endblock %}
+
+<script>
+   
+
+{% comment %} gitlab , bigbucket , atlantissian {% endcomment %}
+  
+  var swiper = new Swiper(".books-slider", {
+    loop:true,
+    centeredSlides: true,
+    autoplay: {
+      delay: 9500,
+      disableOnInteraction: false,
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+      },
+      768: {
+        slidesPerView: 2,
+      },
+      1024: {
+        slidesPerView: 3,
+      },
+    },
+  });
+
+  </script>
+  

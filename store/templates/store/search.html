@@ -1,0 +1,203 @@
+{% extends 'store/basic.html' %}
+
+
+{% block CSS %}
+    .container1{
+        display: grid;
+        height: 100vh;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 0.3fr 0.2fr  0.2fr 6fr  0.8fr ;
+        
+        grid-template-areas: 
+        "header header "
+        "nav nav "
+        
+        "form form "
+        "s1 s1 "
+        
+        "footer footer";
+    }
+    header{
+        
+        grid-area: header;
+    }
+    nav{
+  
+      grid-area: nav;
+    }
+    
+    form{
+        grid-area: form;
+    }
+
+    .s1{
+      background-color: #ff9900;
+        grid-area: s1;
+    }
+  
+    
+    
+
+    footer{
+        background-color: #0e0258;
+        grid-area: footer;
+    }
+
+    .col-md-3{
+      display:inline-block;
+      margin-left: -4px;
+    }
+
+    .col-md-3 img{
+      
+      width:100%;
+      height:100%;
+    }
+    .container{
+        align : center;
+        left:18px
+    }
+    body .carousel-indicators .active{
+      background-color: blue;
+    }
+
+    body .carousel-indicators li{
+      background-color:blue;
+    }
+
+    body .carousel-indicators{
+      bottom:0;
+    }
+
+    body .carousel-control-prev-icon,
+    body .carousel-control-next-icon{
+      background-color:blue;
+    
+    }
+
+    .btn{
+      font-size:0.9rem;
+      
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next{
+      top:auto;
+      bottom:auto;
+      {% comment %} padding-top: 222px {% endcomment %}
+    
+    }
+
+    
+
+
+    body .no-padding{
+      padding-left:0,
+      padding-right:0;
+    }
+
+
+
+      
+
+
+
+
+
+
+    {% endblock %}
+
+    {% block body %}
+{%load cart%}
+{% load static %}
+      
+    <form method="get" action = "/search/" class="form-inline my-2 my-lg-0  searchb ">
+      
+      <!-- search box -->
+      <div class="fetch">
+        <div class="search_box">
+          <input type="search" name="query" id="query" class="form-control mr-sm-2 sbox" placeholder="Search here........">
+          <button class="fa fa-search sbtn " type="submit" style = "top: 1px;" ></button>
+        
+        </div>
+      </div>
+
+</form>
+      
+
+
+
+      
+
+
+
+
+<!--        carousel indicators starts from here-->
+
+<div class="s1" style = "background-color:white; ">
+
+  <div class="container" >
+    {%if books|length < 1 %}
+    <img src="{% static 'store/img/clipart.png' %}" width="300px" height="400px" alt="..."   padding="100px">
+
+    <h2 >Not Found  </h2 text-align="center">
+      Your Search - <b>{{query}} - </b> Did not match any document.<br>
+      Suggestions:
+      <ul>
+        <li>Make sure that all words are spelled correctly.</li>
+        <li>Try more general keywords.</li>
+       <li> Try fewer keywords.</li>
+       <li> Try different keywords.</li>
+        </li>
+        </ul>
+  {%endif%}
+   
+                             {% for book in books %}
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                  <div class="card" style="width: 16.5rem; margin:20px">
+                                    <img src='/media/{{book.image}}' class="card-img-top" alt="...">
+                                    <div class="card-body" >
+                                      <h5 class="card-title">{{book.book_name}}</h5>
+                                      <p class="card-text">{{book.desc|slice:"0:20"}}...</p>
+                                      {% comment %} <button id="pr{{i.id}}"  class="btn btn-primary cart">Add to cart</button> {% endcomment %}
+                                      <a href="/books/{{book.id}}"> <button id="qv{{book.id}}""  class="btn btn-primary ">Quick View</button></a>
+                                    </div>
+
+                                    <form action="/#{{book.id}}" method="post" class="btn-block " >
+                                      {%csrf_token%}
+                                        <input hidden type="text" name="book" value='{{book.id}}'>
+                                        <input onclick="alert(' Previous Quantity of Book is  {{book|cart_quantity:request.session.cart}}. And one more  Book is Added to cart . For more Quantity click Plus ')" type ="submit" class="btn btn-primary mx-5 "  value="Add to cart">
+                                    </form>
+
+
+                                     </div>
+                                 </div>
+                              
+                            {% endfor %}
+                                                
+                    
+  </div>
+            
+
+  </div>
+  
+
+
+  
+   
+  
+    
+
+
+
+<script>
+  {% if msg|length != 0 %}
+  alert('{{msg}}');
+  window.location.href = "/"
+  {% endif %}
+</script>
+
+
+
+
+{% endblock  %}

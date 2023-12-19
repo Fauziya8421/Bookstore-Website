@@ -1,0 +1,78 @@
+{% extends 'store/basic.html' %}
+
+{% block title %} {{book.book_name}} {% endblock %}</title>
+{% block CSS %}
+{% endblock %}
+{%load cart%}
+{% block body %}
+<div class="container my-5">
+    <div class="row">    
+        <div class="col-md-4">
+                <div class="row">
+                    <img src="/media/{{book.image}}" width="300px" height="385px">
+                </div>
+                <div class="row mt-4">
+                    <span id="divpr{{i.id}}" class="divpr">
+                    {% comment %} <button class="btn btn-primary mx-3" style = "width : 8rem;">Buy Now</button> {% endcomment %}
+                    {% comment %} <button id="{{id}}" class="btn btn-primary cart" style = "width : 8rem;">Add to Cart</button> {% endcomment %}
+                    <form action="/#{{book.id}}" method="post" class="btn-block " >
+                        {%csrf_token%}
+                          <input hidden type="text" name="book" value='{{book.id}}'>
+                        <input onclick="alert(' Previous Quantity of Book is  {{book|cart_quantity:request.session.cart}}. And one more  Book is Added to cart . For more Quantity click Plus ')" type ="submit" class="btn btn-primary mx-5 "  value="Add to cart">
+                      </form>
+                    </span>
+                </div>
+        </div>
+
+        <div class="col-md-8">
+                <h4>{{book.book_name}}</h4>
+                <p><b> Rs. {{book.price}}</b></p>
+                <p>{{book.category}}</p>
+                <p>{{book.desc}}</p>
+        </div>
+    </div>
+</div>
+
+
+{% block js%}
+        <script>
+          console.log('working')
+          if(localStorage.getItem('cart') == null)
+          {
+          var cart={};
+          }
+          else{
+          cart= JSON.parse(localStorage.getItem('cart'));
+          document.getElementById('cart').innerHTML = Object.keys(cart).length;
+          }
+          //jQuery starts here//
+          $('.cart').click(function(){
+          
+          console.log('clicked');
+            var idstr= this.id.toString();
+            console.log(idstr);
+            if(cart[idstr]!= undefined) {
+            cart[idstr] = cart[idstr] + 1;
+            }
+            else{
+            cart[idstr] = 1;
+            }
+
+            console.log(cart);
+            localStorage.setItem('cart', JSON.stringify(cart)); 
+            document.getElementById('cart').innerHTML = Object.keys(cart).length;
+         
+            });
+        </script>
+
+{% endblock%}
+
+
+
+
+{% endblock%}
+
+
+{% block footer %}
+{% endblock %}
+

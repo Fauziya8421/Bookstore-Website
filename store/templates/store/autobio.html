@@ -1,0 +1,273 @@
+{% extends 'store/basic.html' %}
+
+
+{% block CSS %}
+
+    <style>
+        .container {
+            display: grid;
+            height: 100vh;
+            grid-template-columns: .50fr 1fr 1fr 1fr;
+            grid-template-rows: 0.4fr 1.5fr 1.2fr 1.2fr 0.9fr;
+            grid-template-areas:
+                "nav nav nav nav"
+                "sidebar main main main"
+                "sidebar main main main "
+                "sidebar main main main "
+                "footer footer footer footer";
+            grid-gap: 0rem;
+
+        }
+
+
+        nav {
+            /* background-color: aqua; */
+            grid-area: nav;
+        }
+
+        main {
+            
+            grid-area: main;
+        }
+
+        .sidebar {
+            /* background-color: rgb(81, 165, 165); */
+            grid-area: sidebar;
+        }
+
+        footer {
+            /* background-color: rgb(173, 233, 233); */
+            grid-area: footer;
+        }
+
+        @media only screen and (max-width: 550px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 0.4fr 1.1fr 1.2fr 1.2fr 1.2fr 1fr;
+                grid-template-areas:
+                    "nav "
+                    "sidebar "
+                    "main "
+                    "main"
+                    "main"
+                    "footer";
+
+            }
+
+        }
+
+        @media only screen and (max-width: 550px) {
+            
+        }
+
+        .sidebar ul {
+
+            width: 250px;
+            position: absolute;
+            top: 1;
+            bottom: 1;
+            /* text-align:justify; */
+
+
+            background: rgb(255, 255, 255);
+            border-radius: 10px;
+            /* box-shadow: 5px 7px 10px rgba(0, 0,0,.5); */
+        }
+
+        .sidebar ul {
+            position: relative;
+           
+            list-style-type: none;
+
+        }
+
+        .sidebar ul a {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            flex-direction: column;
+            font-size: 15px;
+            font-family: arial;
+            text-transform: capitalize;
+            color:#000;
+            padding: 10px 10px;
+            height: 30px;
+            transition: .5s ease;
+            border-radius: 0 20px;
+
+
+        }
+
+
+        .sidebar ul a:hover {
+            background:rgba(0,0,0,0.7);
+            color:#fff ;
+
+        }
+
+        
+  /* search panel */
+  .ftch .sbox{
+    border: 3px solid #ff9900;
+    outline:none;
+    color: black;
+    border-radius: 50px;
+    
+    
+  }
+  .ftch{
+    width: 500px;
+    margin: 1% auto;
+    
+  }
+
+  .ftch .search_box{
+    position: relative;
+    width: 450px;
+    height: 44px;
+  }
+
+  .ftch .search_box .sbox{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px 10px;
+    
+    font-size: 18px;
+  }
+
+  .ftch .search_box .sbtn{
+    position: absolute;
+    top: 7px;
+    right: 0;
+    width: 44px;
+    height: 93%;
+    background-color: #ff9900;
+    z-index: 1;
+    cursor: pointer;
+    
+  }
+
+  .ftch .search_box .sbtn:hover{
+    background-color: #d67c07;
+  }
+
+  .ftch .search_box .sbtn .fa{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 20px;
+    
+  }
+
+  .ftch .search_box .sbtn{
+    right: 0;
+    border-radius: 100px;
+  
+  }
+    </style>
+    
+
+    {% endblock %}
+</head>
+{% load static %}
+
+<body>
+    <div class="container">
+        
+        {% block body %}
+        <main>
+            
+                <!-- search box -->
+                <div class="ftch">
+                  <div class="search_box">
+                    <input type="text" class="sbox" placeholder="Search here........">
+                    <div class="sbtn">
+                      <i class="fa fa-search"></i>
+                    </div>
+                  </div>
+                
+              
+        </main>
+
+
+
+
+        <div class="sidebar">
+
+            <!-- <nav1> -->
+            <ul>Education
+                <li><a href="#">MPSC/UPSC </a></li>
+                <li><a href="#">Academic 1-12 </a></li>
+                <li><a href="#">NCERT 5-12 </a></li>
+                <li><a href="#">State Board </a></li>
+                <li><a href="#">Entrance Exam </a></li>
+                <li><a href="#"> Pharmacy</a></li>
+                <li><a href="#"> Engineering Diploma</a></li>
+                <li><a href="#"> Banking</a></li>
+
+                Others
+                <li><a href="#"> Novel</a></li>
+                <li><a href="#"> Autobiography</a></li>
+                <li><a href="#"> Spiritual Book</a></li>
+                <li><a href="#"> Motivational</a></li>
+
+
+            </ul>
+            <!-- </nav1> -->
+
+
+
+
+
+
+        </div>
+        {% block js%}
+        <script>
+          console.log('working')
+          if(localStorage.getItem('cart') == null)
+          {
+          var cart={};
+          }
+          else{
+          cart= JSON.parse(localStorage.getItem('cart'));
+          document.getElementById('cart').innerHTML = Object.keys(cart).length;
+          }
+          //jQuery starts here//
+          $('.cart').click(function(){
+          
+          console.log('clicked');
+            var idstr= this.id.toString();
+            console.log(idstr);
+            if(cart[idstr]!= undefined) {
+            cart[idstr] = cart[idstr] + 1;
+            }
+            else{
+            cart[idstr] = 1;
+            }
+
+            console.log(cart);
+            localStorage.setItem('cart', JSON.stringify(cart)); 
+            document.getElementById('cart').innerHTML = Object.keys(cart).length;
+         
+            });
+            
+            
+        </script>
+
+{% endblock%}
+
+
+        {% endblock %}
+        
+    </div>
+</body>
+
+
+          
+ 

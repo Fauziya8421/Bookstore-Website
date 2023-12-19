@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2.0.11/dist/flickity.min.css">
+
+  <!-- font awesome cdn link  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!--<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2.0.11/dist/flickity.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<!--custom link-->
+{% comment %} <link rel="stylesheet" href="{%static 'store/css/page.css' %}"> {% endcomment %}
+<link rel="stylesheet" href="{%static 'store/css/home.css' %}">
+<link rel="stylesheet" href="{%static 'store/css/mediaQ.css' %}">
+<link rel="stylesheet" href="{%static 'store/css/footer.css' %}">
+{% comment %} <link rel="stylesheet" href="{%static 'store/css/slider.css' %}"> {% endcomment %}
+
+<title> {% block title %} BookStore {% endblock %}</title>
+<style>
+    {% block CSS %} {% endblock %}
+    
+</style>
+
+</head>
+<body>
+  {%load cart%}
+    {% load static %}
+{% block navbar %} 
+      <div class="container1">
+          <!--header section started -->
+        <header class="header">
+          <div class="logo">
+            <img src="{%static 'store/img/logobg.jpeg' %}" class="brand" alt="Our Logo">
+          </div>
+        
+            <div class = "ml-auto form-inline">
+              {% comment %} <a href="/cart">cart</a> {% endcomment %}
+             <a type="submit" href="/cart" class="btn btn-secondary mr-2"  >cart
+              <span class="badge badge-info">{{request.session.cart.keys|length}}</span>
+              <span class="sr-only">(current)</span>
+             </a>
+             
+          
+          
+            {% comment %} <div id="login-btn" class="fas fa-user"></div> {% endcomment %}
+        {% if request.session.customer %}
+          <ul class="navbar-nav mb-4 mb-lg-0">
+        
+            
+           
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Hi {{request.session.fname}}
+              </a>
+              <ul class="dropdown-menu">
+                <li> <a class="nav-link " href="/orders" > &nbsp;&nbsp;&nbsp;&nbsp;  orders</a></li> 
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                {% comment %} <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li> {% endcomment %}
+              </ul>
+            </li>
+          </ul>
+          
+          {% else %}
+            <!-- Button to  trigger login modal -->
+          <button type="button" class="btn btn-secondary mr-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+            Login 
+          </button>
+
+            <!-- Button to  trigger signup modal -->
+          <button type="button" class="btn btn-secondary mr-2" data-bs-toggle="modal" data-bs-target="#signupModal">
+            SignUp
+          </button>
+          
+          {% endif %} 
+        </div>
+        </header>
+      
+        
+
+        
+          
+<!--  Signup Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupModalTitle">SignUp here</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action= "/signup/" method='post'>
+        
+          {% comment %} <div class="form-group">
+            <label for ="username">Username</label>
+            <input type ="text" class="form-control" id="username" name="username" placeholder="Choose a unique username " required>
+          </div> {% endcomment %}
+
+         
+      
+          <div class="form-group">
+            <label for ="fname">First Name</label>
+            <input type ="text" class="form-control" id="fname" name="fname" placeholder="Enter Your First Name" required>
+          </div>
+          <div class="form-group">
+            <label for ="lname">Last Name</label>
+            <input type ="text" class ="form-control" id="lname" name="lname" placeholder="Enter Your Last Name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phone"> Phone Number</label>
+            <input type="Number" class = "form-control" id="phone" name="phone" placeholder="Enter Phone Number" required>
+          </div> 
+          <div class = "form-group">
+            <label for="password">Password</label>
+            <input type="password" class = "form-control" id="password" name="password" placeholder="Enter your password " required>
+          </div>
+         
+        
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--  Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalTitle">Login here</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form action= "/login/" method='post'>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your Email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="password1">Password</label>
+            <input type="password1" class="form-control" id="password1" name="password1" placeholder="Enter Your Password" required>
+          </div>
+          
+        
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+          {% comment %} fatching Categories name from database {% endcomment %}
+          <nav>
+             <div class="container01 Categorie">
+                <a href="/">All Books</a>
+                {%for category in categories%} 
+                <a href="/?category={{category.id}}">{{category.name}}</a>
+                {%endfor%}
+                <a href="/tracker">Tracker</a>
+               
+               
+            </div> 
+
+            {% for message in messages  %}            
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  <strong>Message : </strong> {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    {% comment %} <span aria-hidden="true">&times;</span> {% endcomment %}
+                  </button>
+                  
+                </div>
+            {% endfor %}
+          </nav>
+          
+  
+{% endblock %}
+{% block body %} {% endblock %}
+{% block footer %} 
+
+
+          <footer class="footer">
+            <div class="footer__addr">
+              <h1 class="footer__logo"><img src= "{%static 'store/img/bibliophile white logo.jpg' %}" class="brand logo" alt="Our Logo"
+                  style="height:auto;  width: 50%;"></h1>
+            </div>
+    
+            <ul class="footer__nav">
+              <li class="nav__item">
+                <class="nav__title"> Social Media
+                  <ul class="nav__ul">
+                    <li><a href="#">Instagram</a></li>
+                    <li> <a href="#">Facebook</a> </li>
+                    <li> <a href="https://mail.google.com">bibliophile@gmail.com</a> </li>
+                  </ul>
+              </li>
+    
+              <li class="nav__item nav__item--extra">
+                <class="nav__title">Categories Avalible
+                  <ul class="nav__ul nav__ul--extra">
+                    <li><a href="novel.html">Novels</a> </li>
+                    <li><a href="sprint.html">Spritulity</a></li>
+                    <li> <a href="education.html">Education</a></li>
+                    <li><a href="motivat.html">Motivational</a></li>
+                    <li><a href="autobio.html">Autobiography</a></li>
+                    <li><a href="#"></a></li>
+                  </ul>
+              </li>
+    
+              <li class="nav__item">
+                <h2 class="nav__title">Legal</h2>
+                <ul class="nav__ul">
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Terms of Use</a></li>
+                  <li><a href="#">Sitemap</a></li>
+                </ul> 
+              </li>
+            </ul>
+    
+            <div class="legal">
+              <p>&copy; 2021 Something. All rights reserved.</p>
+    
+              <div class="legal__links">
+                <span>Made with <span class="heart"> ♥ </span> Ware Electronics</span>
+              </div>
+            </div>
+    
+          </footer>
+    
+        
+{% endblock %}
+
+{% comment %} {% comment %} <script>
+  // Find out the cart items from localStorage
+  if (localStorage.getItem('cart') == null) {
+      var cart = {};
+  } else {
+      cart = JSON.parse(localStorage.getItem('cart'));
+      updateCart(cart);
+  }
+
+  // If the add to cart button is clicked, add/increment the item
+ // $('.cart').click(function() {
+  $('.divpr').on('click', 'button.cart' , function(){
+      var idstr = this.id.toString();
+      if (cart[idstr] != undefined) {
+          qty = cart[idstr][0] + 1;
+          
+      } else {
+          qty =  1;
+          name = document.getElementById('name' + idstr).innerHTML;
+          price = document.getElementById('price' + idstr).innerHTML;
+          cart[idstr] = [qty , name, parseInt(price)];
+      }
+      updateCart(cart);
+      
+  });
+
+  //Add Popover to cart
+  $('#popcart').popover();
+  updatePopover(cart);
+
+  function updatePopover(cart)
+  {
+      //console.log('We are inside updatePopover');
+      var popStr = "";
+      popStr = popStr + "<h5> Cart for your items in my shopping cart </h5><div class='mx-2 my-2'>";
+      var i = 1;
+      for (var item in cart){
+          popStr = popStr + "<b>" + i + "</b>. ";
+          popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 19) + "... Qty: " + cart[item][0] + '<br>';
+          i = i+1;
+      }
+      popStr = popStr + "</div> <a href='/checkout'><button class='btn btn-primary' id ='checkout'>Checkout</button></a> <button class='btn btn-primary' onclick='clearCart()' id ='clearCart'>Clear Cart</button>     "
+
+      popStr = popStr + "</div>" 
+      console.log(popStr);
+      document.getElementById('popcart').setAttribute('data-content', popStr);
+      $('#popcart').popover('show');
+  }
+
+  // clear cart function 
+  function clearCart() {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    for (var item in cart) {
+        document.getElementById('div' + item).innerHTML = '<button id="' + item + '" class="btn btn-primary cart">Add To Cart</button>'
+    }
+    localStorage.clear();
+    cart = {};
+    updateCart(cart);
+  }
+
+  // update cart function
+  function updateCart(cart) {
+      var sum = 0;
+      for (var item in cart) {
+          sum = sum + cart[item][0];
+          document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      document.getElementById('cart').innerHTML = sum;
+      console.log(cart);
+      updatePopover(cart);
+  }
+
+
+  // If plus or minus button is clicked, change the cart as well as the display value
+  $('.divpr').on("click", "button.minus", function() {
+      a = this.id.slice(7, );
+      cart['pr' + a][0] = cart['pr' + a][0] - 1;
+      cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
+      //document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+      if (cart['pr' + a][0] == 0){
+        for(var item in cart){
+        document.getElementById('div'+ item).innerHTML = '<button id = "' + item + '" class="btn btn-primary cart" > Add to Cart </button>'
+      }
+        delete cart['pr' + a];
+      }
+      else{
+        document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+
+      }
+      updateCart(cart);
+  });
+  $('.divpr').on("click", "button.plus", function() {
+      a = this.id.slice(6, );
+      cart['pr' + a][0] = cart['pr' + a][0] + 1;
+      document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+      updateCart(cart);
+  });
+
+
+
+{% comment %} 
+  document.getElementById("login-btn").addEventListener("click" , function(){
+    document.querySelector(".login-form-container").style.display = "flex";
+  });
+  
+  document.querySelector("#close-login-btn").addEventListener("click" , function(){
+    document.querySelector(".login-form-container").style.display = "none";
+  }) ; 
+  
+  </script>{% endcomment %}
+
+
+
+        
+
+
+ <!-- <script src="{%static 'store/js/script.js' %}" ></script>-->
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+</body>
+</html>   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
